@@ -1,0 +1,15 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Intermediate R
+
+```{r}
+3 == (2 + 1)
+"intermediate" != "r"
+TRUE != FALSE
+"Rchitect" != "rchitect"
+
+```
+
