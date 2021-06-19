@@ -1,0 +1,37 @@
+FUNCIONES EN R
+-- Una funcion en R tiene 3 elementos:
+-- 1) Argumentos
+-- 2) Cuerpo
+-- 3) Resultado
+
+EJEMPLO DE FUNCION #1
+```{r}
+multiplica <- function(a, b){
+  # Realiza el proceso de multiplicacion con los argumentos a y b
+    a * b
+}
+
+#CON NOMBRE DE ARGUMENTOS
+r1 <- multiplica (a=5, b=3)
+
+#SIN NOMBRE DE ARGUMENTOS
+r2 <- multiplica (5, 3)
+
+```
+EJEMPLO DE FUNCION #2
+```{r}
+TMB<-function(Sexo,Altura,Peso,Edad){
+  if(Sexo=="mujer") {
+    655 + (9.6 * Peso) + (1.8 * Altura) - (4.7 * Edad)
+  }
+  else {
+    66 + (13.7 * Peso) + (5 * Altura) - (6.8 * Edad)
+  }
+}
+print (paste("Your TMB is:", TMB("hombre",175,65,55)))
+
+```
+FAMILIA APPLY
+La familia de funciones apply es usada para aplicar una función a cada elemento de una estructura de datos. En particular, es usada para aplicar funciones en matrices, data frames, arrays y listas.
+
+
