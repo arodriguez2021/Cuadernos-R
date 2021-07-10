@@ -18,8 +18,48 @@ gapminder %>%
   filter(year == 1957) %>%
   summarize(medianLifeExp = median(lifeExp), max(gdpPercap))
 
+gapminder %>%
+  group_by(year) %>%
+  summarize(medianLifeExp = median(lifeExp), max(gdpPercap))
+
+```
+```{r}
+gapminder %>%
+  group_by(continent) %>%
+  summarize(medianLifeExp = median(lifeExp), max(gdpPercap))
+
+```
+```{r}
+gapminder %>%
+  group_by(continent, year) %>%
+  summarize(medianLifeExp = median(lifeExp), max(gdpPercap))
 
 ```
 
+```{r}
+library(ggplot2)
+by_year <- gapminder %>%
+  group_by(year) %>%
+  summarize(medianLifeExp = median(lifeExp), max(gdpPercap))
+
+by_year
+
+ggplot(by_year, aes(x=year, y=medianLifeExp)) +
+  geom_point()
+
+```
+```{r}
+by_year_cont <- gapminder %>%
+  group_by(continent, year) %>%
+  summarize(mediangdpPercap = median(gdpPercap))
+
+by_year_cont
+
+ggplot(by_year_cont, aes(x=year, y=mediangdpPercap, color=continent)) +
+  geom_point()
+
+
+
+```
 
 
