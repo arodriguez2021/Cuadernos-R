@@ -45,7 +45,7 @@ by_year <- gapminder %>%
 by_year
 
 ggplot(by_year, aes(x=year, y=medianLifeExp)) +
-  geom_point()
+  geom_point(na.rm = T, color = "red")
 
 
 ```
@@ -141,5 +141,96 @@ counties %>%
   mutate(men_proportion=men/population) %>%
   filter (population > 1000) %>%
   arrange(desc(men_proportion))
+
+```
+The Count Verb
+```{r}
+counties_selected <- counties %>%
+ select(county, region, state, population, citizens, walk )
+
+counties_selected %>%
+  count(region, sort=TRUE)
+
+counties_selected %>%
+  count(state, wt = citizens) %>%
+  arrange(desc(n))
+
+counties_selected %>%
+  mutate(population_walk = population*walk/100 ) %>%
+  count(state, wt=population_walk, sort=TRUE)
+
+```
+Summarizing
+```{r}
+counties_selected <- counties %>%
+ select(county, population, income, unemployment)
+
+counties_selected %>%
+  summarize(min_population=min(population), max_unemployment=max(unemployment), avg_income = mean(income))
+
+
+counties_selected <- counties %>%
+ select(state, county, population, land_area)
+
+counties_selected %>%
+  group_by(state) %>%
+  summarize(total_area=sum(land_area), total_population=sum(population))
+
+counties_selected <- counties %>%
+ select(region, state, county, population)
+
+counties_selected %>%
+  group_by(region, state) %>%
+  summarize(total_pop=sum(population)) %>%
+  summarize(avg_pop=mean(total_pop), med_pop=median(total_pop))
+
+counties_selected %>%
+  group_by(region, state) %>%
+  summarize(total_pop=sum(population)) %>%
+  ungroup() %>%
+  summarize(avg_pop=mean(total_pop), med_pop=median(total_pop))
+```
+The top_n verd
+```{r}
+counties_selected <- counties %>%
+ select(region, state, county, metro, population, walk)
+
+counties_selected %>%
+  group_by(region) %>%
+  top_n(2, walk)
+
+counties_selected <- counties %>%
+ select(region, state, county, population, income)
+
+counties_selected %>%
+  group_by(region, state) %>%
+  summarize (avg_income=mean(income)) %>%
+  #ungroup() %>%
+  top_n(1, avg_income)
+
+```
+```{r}
+counties_selected <- counties %>%
+ select(state, metro, population)
+
+counties_selected %>%
+  group_by(state, metro) %>%
+  summarize(total_pop = sum(population))
+
+
+
+
+```
+```{r}
+counties_selected <- counties %>%
+ select(state, metro, population)
+
+counties_selected %>%
+  group_by(state, metro) %>%
+  summarize(total_pop = sum(population)) %>%
+  top_n(1, total_pop) %>%
+  ungroup() %>%
+  count(metro, wt=total_pop)
+
 
 ```
