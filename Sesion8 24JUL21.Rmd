@@ -53,5 +53,58 @@ sets %>%
   arrange(desc(n))
 
 ```
+Left y Right Join
+```{r}
+batmobile %>%
+  inner_join(batwing, c("part_num", "color_id"), suffix=c("_batmobile","_batwing"))
+
+batmobile %>%
+  left_join(batwing, c("part_num", "color_id"), suffix=c("_batmobile","_batwing"))
+
+```
+```{r}
+millenium_falcon <- inventory_parts_join %>%
+  filter(set_num == "7965-1")
+
+millenium_falcon
+
+star_destroyer <- inventory_parts_join %>%
+  filter(set_num == "75190-1")
+
+star_destroyer
+
+millenium_falcon %>%
+  left_join(star_destroyer, by=c("part_num", "color_id"), suffix=c("_falcon", "_star_destroyer"))
+
+millenium_falcon_colors <- millenium_falcon %>%
+  group_by(color_id) %>%
+  summarize(total_quantity=sum(quantity)) %>%
+  arrange(desc(total_quantity))
+
+millenium_falcon_colors
+
+star_destroyer_colors <- star_destroyer %>%
+  group_by(color_id) %>%
+  summarize(total_quantity=sum(quantity)) %>%
+  arrange(desc(total_quantity))
+
+star_destroyer_colors
+
+millenium_falcon_colors %>%
+  left_join(star_destroyer_colors, by="color_id", suffix=c("_falcon","_star_destroyer"))
+
+```
+```{r}
+parts %>%
+  count(part_cat_id) %>%
+  right_join(part_categories, by=c("part_cat_id"="id")) %>%
+  replace_na(list(n=0))
+
+```
+```{r}
+themes %>%
+  inner_join(themes, by=c("id"="parent_id"), suffix=c("_parent","_child"))
+
+```
 
 
