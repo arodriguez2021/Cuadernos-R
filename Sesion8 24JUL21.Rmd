@@ -17,3 +17,23 @@ colors
 
 ```
 
+```{r}
+inventory_parts_join <- inventories %>%
+  inner_join (inventory_parts, by=c("id" = "inventory_id")) %>%
+  select (-id, -version) %>%
+  arrange(desc(quantity))
+
+batmobile <- inventory_parts_join %>%
+  filter(set_num == "7784-1") %>%
+  select(-set_num)
+
+batwing <- inventory_parts_join %>%
+  filter(set_num == "70916-1") %>%
+  select(-set_num)
+
+batmobile %>%
+  inner_join(batwing, c("part_num", "color_id"), suffix=c("_batmobile","_batwing"))
+
+
+```
+
