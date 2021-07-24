@@ -36,4 +36,22 @@ batmobile %>%
 
 
 ```
+```{r}
+parts %>%
+  inner_join(inventory_parts, by="part_num")
+
+inventory_parts %>%
+  inner_join(parts, by="part_num")
+```
+Joining three or more tables
+```{r}
+sets %>%
+  inner_join(inventories, by="set_num") %>%
+  inner_join(inventory_parts, by=c("id" = "inventory_id")) %>%
+  inner_join(colors, by=c("color_id" = "id"), suffix=c("_sets", "_colors")) %>%
+  count(name_colors) %>%
+  arrange(desc(n))
+
+```
+
 
