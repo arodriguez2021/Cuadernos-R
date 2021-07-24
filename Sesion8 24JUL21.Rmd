@@ -1,0 +1,19 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+
+inventories <- read_csv('inventories.csv')
+inventory_parts <- read_csv('inventory_parts.csv')
+colors <- read_csv('colors.csv')
+
+inventories
+inventory_parts
+colors
+
+```
+
