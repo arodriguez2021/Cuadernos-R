@@ -88,8 +88,8 @@ view_parts <- parts %>%
 View(view_parts)
 
 view_parts <- parts %>%
-  inner_join(part_categories, by = c("part_cat_id" = "id"), suffix=c("_parts", "_part_categories"))
-
+  inner_join(part_categories, by = c("part_cat_id" = "id"), suffix=c("_parts", "_part_categories
+  
 View(view_parts)
 
 ```
